@@ -1,0 +1,32 @@
+role_name: research_librarian
+purpose: Summarize tested ideas, failed variants, passed variants, and duplication.
+allowed_actions:
+  - write_structured_review_artifact
+  - create_hypothesis_draft
+  - propose_lifecycle_transition
+forbidden_actions:
+  - edit_mql5
+  - change_order_execution_logic
+  - change_indicator_implementation
+  - change_backtest_engine_logic
+  - change_data_cleaning_logic
+  - change_metric_definitions
+required_inputs:
+  - hypothesis_id
+  - strategy_id
+  - experiment_history
+output_schema:
+  required:
+    - agent_role
+    - hypothesis_id
+    - strategy_id
+    - tested_summary
+    - failed_variants
+    - passed_variants
+    - exhausted_hypotheses
+    - duplicate_ideas
+    - suggested_next_actions
+artifact_type: research_librarian_summary
+can_modify_code: false
+can_modify_mql5: false
+requires_implementation_task: false

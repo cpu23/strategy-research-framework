@@ -1,0 +1,25 @@
+role_name: backtest_runner
+purpose: Run approved backtests through the existing Research OS runner wrapper.
+allowed_actions:
+  - run_approved_backtest
+  - generate_validation_report
+  - generate_portfolio_report
+forbidden_actions:
+  - edit_mql5
+  - change_order_execution_logic
+  - change_indicator_implementation
+  - change_backtest_engine_logic
+  - change_data_cleaning_logic
+  - change_metric_definitions
+required_inputs:
+  - approved_experiment_plan
+  - strategy_spec
+  - dataset_id_or_bundle_id
+output_schema:
+  required:
+    - run_context
+    - artifact_manifest
+artifact_type: run_execution_record
+can_modify_code: false
+can_modify_mql5: false
+requires_implementation_task: false

@@ -28,7 +28,7 @@ automated/reports/
 automated/research_runs/
 automated/sweeps/
 automated/runs/
-automated/strategies/
+automated/strategies/momentum_v1/
 automated/rules/
 hypotheses/
 prompts/

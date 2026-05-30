@@ -1,16 +1,15 @@
 # Strategy Research Framework
 
-A public-safe architecture snapshot for a local-first trading strategy research
-workflow.
+A public-safe framework for a local-first trading strategy research workflow.
 
-This repository intentionally excludes proprietary strategy rules, hypotheses,
-backtest results, generated reports, prompts, dashboards, and run artifacts. It
-is meant to document the operating model and repository boundaries for a
-repeatable research system without publishing private alpha.
+This repository includes the reusable research automation code, schemas, tests,
+example specifications, and MT5-oriented workflow scripts. It intentionally
+excludes private alpha, generated run artifacts, local databases, prompts, and
+the `momentum_v1` strategy family.
 
 ## Architecture
 
-The private system uses four conceptual layers:
+The framework uses four conceptual layers:
 
 - **Research intake:** capture a strategy idea as a structured hypothesis with
   assumptions, target market conditions, invalidation criteria, and evidence
@@ -26,15 +25,15 @@ The private system uses four conceptual layers:
 
 The following are deliberately not included:
 
-- Concrete strategies or expert advisor source code
-- Strategy rules, parameter sets, or optimization sweeps
+- `momentum_v1` source code, rules, parameter sets, or run configs
 - Backtest outputs, charts, trade logs, equity curves, and dashboards
 - Research prompts, generated theses, and private notes
 - Local databases and registry snapshots
 
 ## Status
 
-This is a sanitized public shell. The private implementation remains separate.
+This is a sanitized public code snapshot. Private strategies and research
+artifacts remain separate.
 
 ## Suggested Repository Topics
 

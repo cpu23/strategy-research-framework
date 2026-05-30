@@ -1,0 +1,6 @@
+sweep_type: cost_stress
+parent_experiment_id: EXP_REPLACE_WITH_PARENT
+budget:
+  max_child_experiments: 5
+cost_multipliers: [1.0, 1.5, 2.0, 3.0]
+baseline_source: parent_experiment

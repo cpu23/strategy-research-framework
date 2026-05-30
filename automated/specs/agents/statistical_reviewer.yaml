@@ -1,0 +1,32 @@
+role_name: statistical_reviewer
+purpose: Review statistical reliability, sample size, trial count, and leakage risk.
+allowed_actions:
+  - write_structured_review_artifact
+  - propose_lifecycle_transition
+forbidden_actions:
+  - edit_mql5
+  - change_order_execution_logic
+  - change_indicator_implementation
+  - change_backtest_engine_logic
+  - change_data_cleaning_logic
+  - change_metric_definitions
+required_inputs:
+  - experiment_id
+  - validation_report
+  - experiment_registry_record
+output_schema:
+  required:
+    - agent_role
+    - experiment_id
+    - sample_size_assessment
+    - number_of_trials
+    - multiple_testing_risk
+    - non_normal_return_concerns
+    - overlapping_trade_concerns
+    - train_test_leakage_concerns
+    - decision
+    - required_followups
+artifact_type: statistical_review
+can_modify_code: false
+can_modify_mql5: false
+requires_implementation_task: false

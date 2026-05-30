@@ -1,0 +1,324 @@
+strategy_id: failed_breakout_reversal_v1
+strategy_version: v1
+hypothesis_id: HYP_FAILED_BREAKOUT_REVERSAL_001
+status: baseline_testing
+created_at: "2026-05-11"
+updated_at: "2026-05-11"
+
+universe:
+  - XAUUSD
+timeframe: H4
+
+implementation:
+  engine: mt5
+  generation_mode: wrapped_existing_files
+  files:
+    config: automated/runs/fbr_xauusd_h4_baseline.conf
+    parameters: automated/runs/sets/fbr_xauusd_h4_baseline.set
+    expert_advisor: automated/strategies/failed_breakout_reversal_v1/FailedBreakoutReversalV1.mq5
+
+execution_timing:
+  signal_bar: closed_bar
+  entry_bar: next_bar
+  assumed_fill_price: market_first_tick_or_tester_fill_at_next_bar
+  exit_evaluation: >
+    Intrabar stop and midpoint target are represented with MT5 order fills;
+    timeout and breakout-extreme invalidation are managed on closed bars.
+
+costs:
+  assumptions_documented: true
+  spread_source:
+    type: mt5_tester
+    description: Broker/tester spread model from the local OANDA MT5 history.
+  slippage:
+    type: points
+    value: 20
+    source: InpSlippagePoints
+  commission:
+    type: broker_account_or_tester_default
+    value: null
+    description: No explicit commission override is set in phase 1.
+  stress_multiplier: null
+  notes: >
+    Phase 1 records the execution assumptions but does not yet perform cost
+    stress. Cost stress is a validation warning until robustness tooling exists.
+
+entry:
+  type: failed_breakout_reversal
+  range_lookback_bars: 20
+  long_setup:
+    - signal_low_breaks_prior_range_low
+    - signal_closes_back_above_prior_range_low
+    - close_distance_from_boundary_lte_atr_multiple
+  short_setup:
+    - signal_high_breaks_prior_range_high
+    - signal_closes_back_below_prior_range_high
+    - close_distance_from_boundary_lte_atr_multiple
+  parameters:
+    range_lookback_bars: 20
+    atr_period: 14
+    adx_period: 14
+    max_adx: 25.0
+    atr_percentile_lookback: 100
+    max_atr_percentile: 80.0
+    max_close_distance_atr: 0.50
+    min_break_distance_atr: 0.0
+    min_boundary_touches: 0
+    boundary_touch_tolerance_atr: 0.15
+
+regime_filters:
+  - type: adx_below_threshold
+    parameter: max_adx
+  - type: atr_percentile_below_threshold
+    parameter: max_atr_percentile
+
+exit:
+  type: midpoint_or_adverse_atr_or_timeout
+  rules:
+    - range_midpoint_take_profit
+    - adverse_atr_stop
+    - timeout_bars
+    - breakout_extreme_close_invalidation
+  parameters:
+    adverse_atr_multiplier: 1.20
+    max_hold_bars_h1: 12
+    max_hold_bars_h4: 6
+    min_target_risk_ratio: 0.0
+
+risk:
+  position_sizing: percent_of_starting_balance
+  risk_per_trade_pct: 0.50
+  fixed_risk_money: 0.0
+  max_concurrent_positions_per_symbol: 1
+
+validation:
+  min_trades_required: 30
+  largest_trade_concentration_warning_threshold: 0.20
+  trade_count_unavailable_policy: fail
+  walk_forward: false
+  parameter_robustness_required: false
+  portfolio_correlation_required: false
+  phase1_warning_gates:
+    - parameter_robustness_not_yet_run
+    - walk_forward_not_yet_run
+    - portfolio_correlation_not_yet_run
+    - cost_stress_not_yet_run
+    - regime_breakdown_not_yet_run
+
+research_budget:
+  max_structural_variants: 20
+  max_parameter_sets: 300
+  max_filter_additions: 3
+  max_agent_iterations: 10
+  min_trades_required: 30
+  max_complexity_score: 12
+
+lifecycle:
+  state: baseline_testing
+  allowed_next_states:
+    - robustness_testing
+    - archived
+
+invalidation_rule: >
+  Reject or redesign this strategy version if the failed-breakout signal cannot
+  reach positive expectancy after isolated parameter tests and a nearby-threshold
+  robustness check, or if performance is dominated by one year or one asset.
+
+parameters:
+  InpRangeLookback: 20
+  InpAtrPeriod: 14
+  InpAdxPeriod: 14
+  InpMaxAdx: 25.0
+  InpAtrPercentileLookback: 100
+  InpMaxAtrPercentile: 80.0
+  InpMaxCloseDistanceAtr: 0.50
+  InpAdverseAtrMultiplier: 1.20
+  InpMinTargetRiskRatio: 0.0
+  InpMinBreakDistanceAtr: 0.0
+  InpMinBoundaryTouches: 0
+  InpBoundaryTouchToleranceAtr: 0.15
+  InpMaxHoldBarsH4: 6
+
+implementation_key_inventory:
+  set_file: automated/runs/sets/fbr_xauusd_h4_baseline.set
+  set_keys:
+    strategy_identity:
+      - InpStrategyId
+      - InpMagicNumber
+    risk_and_execution:
+      - InpRiskPercentOfStartingBalance
+      - InpFixedRiskMoney
+      - InpSlippagePoints
+    strategy_logic:
+      - InpRangeLookback
+      - InpAtrPeriod
+      - InpAdxPeriod
+      - InpMaxAdx
+      - InpAtrPercentileLookback
+      - InpMaxAtrPercentile
+      - InpMaxCloseDistanceAtr
+      - InpAdverseAtrMultiplier
+      - InpMinTargetRiskRatio
+      - InpMinBreakDistanceAtr
+      - InpMinBoundaryTouches
+      - InpBoundaryTouchToleranceAtr
+      - InpMaxHoldBarsH1
+      - InpMaxHoldBarsH4
+    trading_session_and_direction:
+      - InpRequireH1OrH4
+      - InpStartHour
+      - InpEndHour
+      - InpAllowLong
+      - InpAllowShort
+      - InpCloseAtEndHour
+  conf_file: automated/runs/fbr_xauusd_h4_baseline.conf
+  conf_keys:
+    runner_identity:
+      - RUN_ID
+      - STRATEGY_ID
+      - EA_NAME
+      - EA_SOURCE
+      - MT5_EXPERT
+    market_window:
+      - BROKER
+      - SYMBOL
+      - TIMEFRAME
+      - DATE_FROM
+      - DATE_TO
+    account_model:
+      - DEPOSIT
+      - CURRENCY
+      - LEVERAGE
+    tester_execution:
+      - MODEL
+      - EXECUTION_MODE
+      - OPTIMIZATION
+      - FORWARD_MODE
+      - VISUAL
+      - USE_LOCAL
+      - USE_REMOTE
+      - USE_CLOUD
+    parameter_binding:
+      - EA_SET_FILE
+  cost_slippage_fields:
+    set:
+      InpSlippagePoints: 20
+    conf: []
+    notes: >
+      Spread and commission are supplied by the MT5 tester/broker account.
+      There is no runner-safe commission or spread override in the current
+      .conf/.set pair.
+  date_window_fields:
+    conf:
+      DATE_FROM: "2024.01.01"
+      DATE_TO: "2025.12.31"
+    set:
+      InpStartHour: 0
+      InpEndHour: 24
+      InpCloseAtEndHour: false
+  infrastructure_fields_not_for_parameter_sweeps:
+    set:
+      - InpStrategyId
+      - InpMagicNumber
+      - InpSlippagePoints
+      - InpRequireH1OrH4
+    conf:
+      - RUN_ID
+      - STRATEGY_ID
+      - EA_NAME
+      - EA_SOURCE
+      - MT5_EXPERT
+      - BROKER
+      - SYMBOL
+      - TIMEFRAME
+      - DATE_FROM
+      - DATE_TO
+      - DEPOSIT
+      - CURRENCY
+      - LEVERAGE
+      - MODEL
+      - EXECUTION_MODE
+      - OPTIMIZATION
+      - FORWARD_MODE
+      - VISUAL
+      - USE_LOCAL
+      - USE_REMOTE
+      - USE_CLOUD
+      - EA_SET_FILE
+    notes: >
+      Window, account, tester, identity, routing, slippage, and symbol/timeframe
+      fields are experiment infrastructure for the current parameter-robustness
+      workflow. Sweep them only in explicitly named window, cost, execution, or
+      infrastructure checks.
+
+sweepable_parameters:
+  range_lookback_bars:
+    implementation_file: set
+    key: InpRangeLookback
+    type: int
+    baseline: 20
+    safe_range: [10, 80]
+    rationale: Changes the prior range definition used by the entry.
+  max_adx:
+    implementation_file: set
+    key: InpMaxAdx
+    type: float
+    baseline: 25.0
+    safe_range: [15.0, 40.0]
+    rationale: Changes only the trend-strength regime gate.
+  max_atr_percentile:
+    implementation_file: set
+    key: InpMaxAtrPercentile
+    type: float
+    baseline: 80.0
+    safe_range: [50.0, 100.0]
+    rationale: Changes only the volatility percentile regime gate.
+  max_close_distance_atr:
+    implementation_file: set
+    key: InpMaxCloseDistanceAtr
+    type: float
+    baseline: 0.50
+    safe_range: [0.10, 1.00]
+    rationale: Changes how far back inside the range the signal close may be.
+  min_break_distance_atr:
+    implementation_file: set
+    key: InpMinBreakDistanceAtr
+    type: float
+    baseline: 0.0
+    safe_range: [0.0, 0.30]
+    rationale: Changes only the minimum stop-run distance beyond the boundary.
+  adverse_atr_multiplier:
+    implementation_file: set
+    key: InpAdverseAtrMultiplier
+    type: float
+    baseline: 1.20
+    safe_range: [0.75, 2.50]
+    rationale: Changes only the adverse ATR stop distance.
+  min_target_risk_ratio:
+    implementation_file: set
+    key: InpMinTargetRiskRatio
+    type: float
+    baseline: 0.0
+    safe_range: [0.0, 2.0]
+    rationale: Changes only the minimum midpoint target-to-risk geometry filter.
+  min_boundary_touches:
+    implementation_file: set
+    key: InpMinBoundaryTouches
+    type: int
+    baseline: 0
+    safe_range: [0, 4]
+    rationale: Changes only the prior boundary quality requirement.
+  boundary_touch_tolerance_atr:
+    implementation_file: set
+    key: InpBoundaryTouchToleranceAtr
+    type: float
+    baseline: 0.15
+    safe_range: [0.05, 0.40]
+    rationale: Sweep only when InpMinBoundaryTouches is held fixed above zero.
+  max_hold_bars_h4:
+    implementation_file: set
+    key: InpMaxHoldBarsH4
+    type: int
+    baseline: 6
+    safe_range: [2, 12]
+    rationale: Changes only the H4 timeout exit.

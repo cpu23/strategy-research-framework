@@ -1,0 +1,33 @@
+role_name: strategy_spec_agent
+purpose: Propose strategy YAML changes without directly editing implementation code.
+allowed_actions:
+  - propose_strategy_spec_diff
+  - propose_parameter_diff
+  - propose_lifecycle_transition
+forbidden_actions:
+  - edit_mql5
+  - change_order_execution_logic
+  - change_indicator_implementation
+  - change_backtest_engine_logic
+  - change_data_cleaning_logic
+  - change_metric_definitions
+required_inputs:
+  - strategy_spec
+  - hypothesis_id
+  - experiment_context
+output_schema:
+  required:
+    - agent_role
+    - strategy_id
+    - proposed_diff
+    - diff_type
+    - rationale
+    - expected_effect
+    - risks
+    - complexity_impact
+    - budget_impact
+    - requires_implementation_task
+artifact_type: strategy_diff_proposal
+can_modify_code: false
+can_modify_mql5: false
+requires_implementation_task: false

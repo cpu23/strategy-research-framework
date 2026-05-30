@@ -1,0 +1,33 @@
+role_name: portfolio_reviewer
+purpose: Review portfolio fit, correlations, drawdown overlap, and marginal contribution.
+allowed_actions:
+  - generate_portfolio_report
+  - write_structured_review_artifact
+  - propose_lifecycle_transition
+forbidden_actions:
+  - edit_mql5
+  - change_order_execution_logic
+  - change_indicator_implementation
+  - change_backtest_engine_logic
+  - change_data_cleaning_logic
+  - change_metric_definitions
+required_inputs:
+  - experiment_id
+  - portfolio_report
+  - portfolio_config
+output_schema:
+  required:
+    - agent_role
+    - experiment_id
+    - portfolio_id
+    - correlation_summary
+    - tail_correlation_summary
+    - drawdown_overlap_summary
+    - marginal_contribution_summary
+    - duplicate_exposure_warning
+    - decision
+    - required_followups
+artifact_type: portfolio_review
+can_modify_code: false
+can_modify_mql5: false
+requires_implementation_task: false

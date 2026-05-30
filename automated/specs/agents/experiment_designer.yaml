@@ -1,0 +1,38 @@
+role_name: experiment_designer
+purpose: Design ceteris-paribus experiment plans before a run is created.
+allowed_actions:
+  - create_hypothesis_draft
+  - propose_experiment_plan
+  - propose_lifecycle_transition
+forbidden_actions:
+  - edit_mql5
+  - change_order_execution_logic
+  - change_indicator_implementation
+  - change_backtest_engine_logic
+  - change_data_cleaning_logic
+  - change_metric_definitions
+required_inputs:
+  - hypothesis_id
+  - strategy_id
+  - baseline_experiment_or_strategy_spec
+output_schema:
+  required:
+    - agent_role
+    - experiment_plan_id
+    - hypothesis_id
+    - strategy_id
+    - primary_test
+    - secondary_tests
+    - required_data
+    - train_period
+    - validation_period
+    - test_period
+    - parameters_allowed
+    - parameters_locked
+    - pass_fail_criteria
+    - risks
+    - created_at
+artifact_type: experiment_plan
+can_modify_code: false
+can_modify_mql5: false
+requires_implementation_task: false

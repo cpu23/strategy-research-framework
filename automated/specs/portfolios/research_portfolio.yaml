@@ -1,0 +1,17 @@
+portfolio_id: research_portfolio_v1
+name: Research Portfolio v1
+description: Candidate strategy portfolio for Research OS validation.
+experiments:
+  - EXP_20260511_151915_failed_breakout_reversal_v1
+  - EXP_20260511_152200_phase2_attach_check
+frequency: daily
+benchmark: optional
+correlation:
+  rolling_windows:
+    - 30
+    - 90
+  tail_threshold_quantile: 0.20
+promotion_thresholds:
+  max_average_abs_corr: 0.70
+  max_tail_corr: 0.80
+  max_drawdown_overlap: 0.75

@@ -1,0 +1,7 @@
+sweep_type: execution_delay_stress_scaffold
+parent_experiment_id: EXP_REPLACE_WITH_PARENT
+budget:
+  max_child_experiments: 1
+delays:
+  - one_bar
+status: not_implemented

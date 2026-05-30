@@ -1,0 +1,32 @@
+role_name: risk_execution_reviewer
+purpose: Review execution realism, liquidity, gap risk, and position concentration.
+allowed_actions:
+  - write_structured_review_artifact
+  - propose_lifecycle_transition
+forbidden_actions:
+  - edit_mql5
+  - change_order_execution_logic
+  - change_indicator_implementation
+  - change_backtest_engine_logic
+  - change_data_cleaning_logic
+  - change_metric_definitions
+required_inputs:
+  - experiment_id
+  - validation_report
+  - strategy_spec
+output_schema:
+  required:
+    - agent_role
+    - experiment_id
+    - bar_close_execution_realism
+    - next_bar_sensitivity
+    - liquidity_assumptions
+    - position_concentration
+    - gap_or_weekend_risk
+    - funding_borrow_roll_costs
+    - decision
+    - required_followups
+artifact_type: risk_execution_review
+can_modify_code: false
+can_modify_mql5: false
+requires_implementation_task: false

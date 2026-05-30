@@ -1,0 +1,16 @@
+sweep_type: parameter_robustness
+parent_experiment_id: EXP_20260511_152200_phase2_attach_check
+strategy_id: failed_breakout_reversal_v1
+budget:
+  max_child_experiments: 10
+  max_parameters_changed_per_child: 1
+  require_one_variable_at_a_time: true
+parameters:
+  min_break_distance_atr:
+    key: InpMinBreakDistanceAtr
+    values: [0.0, 0.05, 0.10, 0.15, 0.20]
+  adverse_atr_multiplier:
+    key: InpAdverseAtrMultiplier
+    values: [1.0, 1.2, 1.5, 2.0]
+mode: one_variable_at_a_time
+baseline_source: parent_experiment

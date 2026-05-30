@@ -1,0 +1,9 @@
+sweep_type: walk_forward_scaffold
+parent_experiment_id: EXP_REPLACE_WITH_PARENT
+budget:
+  max_child_experiments: 0
+windows:
+  train_months: 24
+  test_months: 6
+  step_months: 6
+status: not_implemented

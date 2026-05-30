@@ -1,0 +1,14 @@
+sweep_type: parameter_robustness
+parent_experiment_id: EXP_REPLACE_WITH_PARENT
+strategy_id: failed_breakout_reversal_v1
+budget:
+  max_child_experiments: 25
+  max_parameters_changed_per_child: 1
+  require_one_variable_at_a_time: true
+parameters:
+  InpRangeLookback:
+    values: [20, 30, 40, 50, 60]
+  InpAdverseAtrMultiplier:
+    values: [1.0, 1.2, 1.5, 2.0]
+mode: one_variable_at_a_time
+baseline_source: parent_experiment

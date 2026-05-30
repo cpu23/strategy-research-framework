@@ -1,0 +1,13 @@
+expected_dataset_id: null
+expected_symbol: XAUUSD
+expected_timeframe: H4
+max_duration_seconds: 180
+mode: real_backtest_readiness
+output_dir: /home/mrw/Documents/vault/projects/trading/automated/strategies/SomeEA/readiness
+runner_conf_path: /tmp/tmptlhsecjn/runner/ph19_path_test.conf
+set_file_path: /tmp/tmptlhsecjn/runner/ph19_path_test.set
+terminal_data_dir: null
+terminal_path: null
+timeout_seconds: 180
+wine_binary: /usr/bin/wine
+wine_prefix: null
