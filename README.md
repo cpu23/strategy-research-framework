@@ -35,3 +35,8 @@ The following are deliberately not included:
 ## Status
 
 This is a sanitized public shell. The private implementation remains separate.
+
+## Suggested Repository Topics
+
+`trading-research`, `research-framework`, `backtesting`, `experiment-tracking`,
+`workflow-architecture`
