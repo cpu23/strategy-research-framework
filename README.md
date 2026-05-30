@@ -21,6 +21,26 @@ The framework uses four conceptual layers:
 - **Review and registry:** track experiment lineage, pass/fail gates,
   robustness notes, and promotion decisions.
 
+## Architecture & Design Decisions
+
+The system is deliberately split into small modules rather than one end-to-end
+automation script. Research intake, implementation, execution, evidence
+collection, and review are separate so each layer can be debugged, replaced, or
+iterated without disturbing the rest of the workflow.
+
+Promotion is gated. A strategy should not move from idea to implementation to
+candidate status just because an automated run completed. The framework keeps
+human review at key points so weak evidence, overfit backtests, or brittle
+parameter choices can be challenged before more time is spent on them.
+
+The current workflow is intentionally pragmatic about AI. The strongest use so
+far is not autonomous strategy discovery; many public or institutional strategy
+ideas have already had their edge eroded, and naive generation tends to overfit.
+The private workflow therefore uses human hypotheses and trader intuition as the
+starting point, then uses AI-assisted coding, testing, summarisation, and
+backtest presentation to move faster. Future work is focused on improving the
+quality of agent-generated hypotheses and making the evidence gates stricter.
+
 ## Public Boundary
 
 The following are deliberately not included:
