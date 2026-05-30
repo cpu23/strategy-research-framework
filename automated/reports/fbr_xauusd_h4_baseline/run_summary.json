@@ -1,0 +1,12 @@
+{
+  "strategy_id": "failed_breakout_reversal_v1",
+  "symbol": "XAUUSD",
+  "timeframe": "H4",
+  "trades": 34,
+  "wins": 13,
+  "losses": 21,
+  "win_rate_pct": 38.24,
+  "net_profit": -956.79,
+  "profit_factor": 0.89,
+  "max_equity_drawdown_pct": 2.80
+}

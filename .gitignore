@@ -26,14 +26,30 @@ __pycache__/
 
 automated/reports/
 automated/research_runs/
+automated/generated_strategies/
+automated/implementation_requests/
 automated/sweeps/
 automated/runs/
+!automated/runs/
+automated/runs/*
+!automated/runs/fbr_xauusd_h4_baseline.conf
+!automated/runs/sets/
+automated/runs/sets/*
+!automated/runs/sets/fbr_xauusd_h4_baseline.set
 automated/strategies/momentum_v1/
 automated/rules/
 hypotheses/
+!hypotheses/
+!hypotheses/HYP_FAILED_BREAKOUT_REVERSAL_001.yaml
 prompts/
 
 *.log
 *.html
 *.png
 *.svg
+!automated/reports/
+automated/reports/*
+!automated/reports/fbr_xauusd_h4_baseline/
+automated/reports/fbr_xauusd_h4_baseline/*
+!automated/reports/fbr_xauusd_h4_baseline/equity.csv
+!automated/reports/fbr_xauusd_h4_baseline/run_summary.json

@@ -41,6 +41,16 @@ starting point, then uses AI-assisted coding, testing, summarisation, and
 backtest presentation to move faster. Future work is focused on improving the
 quality of agent-generated hypotheses and making the evidence gates stricter.
 
+## Local Verification
+
+Install the small runtime dependency, then run compile and unit-test checks:
+
+```bash
+python3 -m pip install -r requirements.txt
+python3 -m compileall -q automated tests
+python3 -m unittest discover -s tests -q
+```
+
 ## Public Boundary
 
 The following are deliberately not included:

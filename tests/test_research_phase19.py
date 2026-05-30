@@ -402,14 +402,22 @@ class ResearchPhase19UnsafePathTests(unittest.TestCase):
 
     def test_output_dir_under_production_rejected(self):
         prod_output = REPO_ROOT / "automated" / "strategies" / "SomeEA" / "readiness"
-        config_path = _make_readiness_config(
-            prod_output, self.safe_conf_path, self.safe_set_path,
-        )
-        config = backtest_readiness.load_real_backtest_readiness_config(config_path)
-        result = backtest_readiness.run_real_backtest_readiness(
-            self.db_path, self.impl_req_id, config,
-            runner_script=self.fake_runner,
-        )
+        config_path = prod_output / "readiness_config.yaml"
+        original_config = config_path.read_text(encoding="utf-8") if config_path.is_file() else None
+        try:
+            config_path = _make_readiness_config(
+                prod_output, self.safe_conf_path, self.safe_set_path,
+            )
+            config = backtest_readiness.load_real_backtest_readiness_config(config_path)
+            result = backtest_readiness.run_real_backtest_readiness(
+                self.db_path, self.impl_req_id, config,
+                runner_script=self.fake_runner,
+            )
+        finally:
+            if original_config is None:
+                config_path.unlink(missing_ok=True)
+            else:
+                config_path.write_text(original_config, encoding="utf-8")
         self.assertEqual(result["status"], "failed")
         self.assertTrue(
             any("output" in e.lower() and "strategies" in e.lower() for e in result.get("errors", [])),

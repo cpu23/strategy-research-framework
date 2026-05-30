@@ -1,0 +1,38 @@
+hypothesis_id: HYP_FAILED_BREAKOUT_REVERSAL_001
+name: Failed breakout reversal toward range midpoint
+status: active_research
+mechanism: >
+  In range or chop regimes, a break beyond a prior range boundary can trap
+  breakout participants when price closes back inside the range. The trapped
+  flow may support a reversal toward the range midpoint.
+expected_edge: >
+  Positive expectancy after failed breaks of prior range extremes when the
+  market is not already in a strong trend or high-volatility expansion.
+timeframes:
+  - 1h
+  - 4h
+markets:
+  - liquid FX majors
+  - liquid equity index CFDs or futures
+  - gold
+predictions:
+  - Should work better when ADX is low or falling.
+  - Should work better when current volatility is not in an extreme expansion regime.
+  - Should improve when the breakout distance is meaningful but not excessive.
+  - Should degrade when genuine trend expansion follows the boundary break.
+  - Should not depend on one exact range lookback or one exact ATR threshold.
+failure_modes:
+  - Real breakouts continue through the failed-breakout entry.
+  - Range boundaries are mechanically visible but not meaningful to participants.
+  - ADX or ATR filters lag the regime change.
+  - Edge is concentrated in one asset, one year, or one volatility regime.
+  - Midpoint target is too close relative to adverse ATR risk.
+initial_test: >
+  Compare failed breaks of the prior 20-bar range against midpoint-reversion
+  outcomes on XAUUSD H4 with ADX and ATR-percentile regime filters enabled.
+invalidation_rule: >
+  Reject or redesign the hypothesis if isolated improvements cannot produce
+  positive expectancy across nearby breakout-distance thresholds and at least
+  one additional liquid market/timeframe without materially worse drawdown.
+created_at: "2026-05-11"
+updated_at: "2026-05-11"
