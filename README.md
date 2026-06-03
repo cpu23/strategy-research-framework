@@ -4,12 +4,11 @@ A public-safe framework for a local-first trading strategy research workflow.
 
 This repository includes the reusable research automation code, schemas, tests,
 example specifications, and MT5-oriented workflow scripts. It intentionally
-excludes private alpha, generated run artifacts, local databases, prompts, and
-the `momentum_v1` strategy family.
+excludes private alpha, generated run artifacts, local databases, prompts.
 
 ## Screenshots
 
-Sanitized result dashboards from a private baseline run. These show the
+Result dashboard from a private baseline run. These show the
 presentation and review layer only; source code, trade rules, parameter sets,
 and run configs are not included.
 
