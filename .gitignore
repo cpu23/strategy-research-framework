@@ -46,6 +46,8 @@ prompts/
 *.log
 *.html
 *.png
+!docs/assets/
+!docs/assets/*.png
 *.svg
 !automated/reports/
 automated/reports/*

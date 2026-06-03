@@ -7,6 +7,16 @@ example specifications, and MT5-oriented workflow scripts. It intentionally
 excludes private alpha, generated run artifacts, local databases, prompts, and
 the `momentum_v1` strategy family.
 
+## Screenshots
+
+Sanitized result dashboards from a private baseline run. These show the
+presentation and review layer only; source code, trade rules, parameter sets,
+and run configs are not included.
+
+![Baseline dashboard grid](docs/assets/baseline-dashboard-grid.png)
+
+![Baseline detail modal](docs/assets/baseline-detail-modal.png)
+
 ## Architecture
 
 The framework uses four conceptual layers:
@@ -56,9 +66,13 @@ python3 -m unittest discover -s tests -q
 The following are deliberately not included:
 
 - `momentum_v1` source code, rules, parameter sets, or run configs
-- Backtest outputs, charts, trade logs, equity curves, and dashboards
+- Raw backtest outputs, trade logs, equity curves, generated dashboards, and
+  local run artifacts
 - Research prompts, generated theses, and private notes
 - Local databases and registry snapshots
+
+The README screenshots are curated public examples of the result-presentation
+layer. They are not runnable artifacts and do not disclose strategy logic.
 
 ## Status
 
